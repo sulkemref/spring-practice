@@ -1,6 +1,7 @@
 package com.cydeo.stereotype_annotation;
 
 import com.cydeo.stereotype_annotation.config.PcConfig;
+import com.cydeo.stereotype_annotation.monitorfactory.Monitor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -10,5 +11,7 @@ public class ComputerTest {
 
         ApplicationContext container = new AnnotationConfigApplicationContext(PcConfig.class);
 
+        Monitor theMonitor = container.getBean(Monitor.class);
+        System.out.println(theMonitor.getSize());
     }
 }

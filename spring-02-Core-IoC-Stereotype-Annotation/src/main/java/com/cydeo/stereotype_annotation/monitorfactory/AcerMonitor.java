@@ -4,13 +4,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SonyMonitor extends Monitor{
+@Primary
+public class AcerMonitor extends Monitor{
 
-    public SonyMonitor() {
-        super("25 inch beast","Sony",25);
+    public AcerMonitor() {
+        super("23 inch beast","Sony",23);
     }
 
     public void drawPixelAt() {
-        System.out.println("Drawing pixel with Sony");
+        System.out.println("Drawing pixel with Acer");
     }
 }
