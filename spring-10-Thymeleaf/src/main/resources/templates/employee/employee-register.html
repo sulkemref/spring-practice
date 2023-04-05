@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <!--    Bootstrap Declaration-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+    <title>Employee Register</title>
+</head>
+<body style="background-color: lightgray">
+<!-- ============================================================== -->
+<!--Start Header-->
+<!-- ============================================================== -->
+<div class="dashboard-header" style="background-color: #39b5e0" >
+    <h2 style="color: white" th:align="center" >Welcome to Employee Registration Page</h2>
+</div>
+<!-- ============================================================== -->
+<!--End Header-->
+<!-- ============================================================== -->
+<!--Start Form-->
+<!-- ============================================================== -->
+<div class="row" th:align="center" >
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" >
+        <form th:action="@{/employee/confirm}" method="post" th:object="${employee}">
+            <div class="row">
+                <div class="form-group col-4">
+                    <label for="firstname" class="col-form-label">First Name</label>
+                    <input id="firstname" type="text" class="form-control"
+                           placeholder="first name" th:field="*{firstName}">
+                </div>
+                <div class="form-group col-4">
+                    <label for="lastname" class="col-form-label">Last Name</label>
+                    <input id="lastname" type="text" class="form-control"
+                           placeholder="last name" th:field="*{lastName}">
+                </div>
+                <div class="form-group col-4">
+                    <label class="col-form-label">Birthday</label>
+                    <input type="date" class="form-control" th:field="*{DOB}">
+                    </label>
+
+                </div>
+            </div> <!--First Name, Last Name, Birthday-->
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="email" class="col-form-label">Email Address</label>
+                    <input id="email" type="text" class="form-control"
+                           placeholder="email address" th:field="*{email}">
+                </div>
+                <div class="form-group col-6">
+                    <label for="password" class="col-form-label">Password</label>
+                    <input id="password" type="password" class="form-control"
+                           placeholder="password" th:field="*{password}">
+                </div>
+            </div> <!--Email, Password-->
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="address" class="col-form-label">Address</label>
+                    <input id="address" type="text" class="form-control"
+                           placeholder="1234 Main St" th:field="*{address}">
+                </div>
+            </div> <!--Address-->
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="address2" class="col-form-label">Address 2</label>
+                    <input id="address2" type="text" class="form-control"
+                           placeholder="Apartment, studio, or floor" th:field="*{address2}">
+                </div>
+            </div> <!--Address2-->
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="city" class="col-form-label">City</label>
+                    <input id="city" type="text" class="form-control" th:field="*{city}">
+                </div>
+                <div class="form-group col-4">
+                    <label class="col-form-label">State</label>
+                    <select class="custom-select" id="roleDropdown" name="roleId" th:field="*{state}">
+                        <option th:each="theState : ${stateList}" th:value="${theState}" th:text="${theState}"></option>
+                    </select>
+                </div>
+                <div class="form-group col-2">
+                    <label class="col-form-label">Zip</label>
+                    <input type="text" class="form-control" th:field="*{zip}">
+                    </label>
+
+                </div>
+            </div> <!--City, State, Zip-->
+            <div class="row">
+                <div class="form-group col-12">
+                    <button class="btn-danger float-left" type="submit">Register</button>
+                </div>
+            </div> <!--Submit Button-->
+        </form>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!--End Form-->
+<!-- ============================================================== -->
+</body>
+</html>
