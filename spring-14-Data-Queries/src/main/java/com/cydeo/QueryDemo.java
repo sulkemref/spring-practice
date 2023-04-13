@@ -43,5 +43,13 @@ public class QueryDemo implements CommandLineRunner {
         System.out.println(employeeRepository.findByEmail("acurwood6@1und1.de"));
         System.out.println("-------------");
         System.out.println(employeeRepository.retrieveEmployeeDetail());
+        System.out.println("-------------");
+        System.out.println(employeeRepository.retrieveEmployeeSalaryLessThan(50000));
+        System.out.println("-------------");
+        System.out.println(employeeRepository.retrieveEmployeeLastNameSalaryBetween(50000,60000));
+        System.out.println("-------------");
+        System.out.println(employeeRepository.retrieveEmployeeDetailBySalary(72540));
+
+
     }
 }
