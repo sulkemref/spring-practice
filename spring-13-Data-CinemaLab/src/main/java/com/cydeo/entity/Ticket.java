@@ -1,14 +1,17 @@
 package com.cydeo.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Ticket extends BaseEntity{
 
 
@@ -20,4 +23,13 @@ public class Ticket extends BaseEntity{
     private LocalDateTime dateTime;
     private Integer seatNumber;
     private Integer rowNumber;
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "dateTime=" + dateTime +
+                ", seatNumber=" + seatNumber +
+                ", rowNumber=" + rowNumber +
+                '}';
+    }
 }
