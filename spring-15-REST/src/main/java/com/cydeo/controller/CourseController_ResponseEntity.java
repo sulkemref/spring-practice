@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/courses/api/v2")
@@ -46,6 +47,18 @@ public class CourseController_ResponseEntity {
                 .header("Version", "Cydeo.V2")
                 .header("Operation", "Create")
                 .body(courseService.createCourse(course));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteCourseById(@PathVariable("id") long courseId){
+        courseService.deleteCourseById(courseId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Void> updateCourse (@PathVariable("id") Long courseId,@RequestBody CourseDTO course){
+        courseService.updateCourse(courseId,course);
+        return ResponseEntity.noContent().build();
     }
 
 
