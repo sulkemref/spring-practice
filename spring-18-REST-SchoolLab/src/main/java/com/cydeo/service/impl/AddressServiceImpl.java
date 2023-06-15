@@ -1,10 +1,14 @@
 package com.cydeo.service.impl;
 
+import com.cydeo.client.RestCountriesApiClient;
+import com.cydeo.client.WeatherApiClient;
 import com.cydeo.dto.AddressDTO;
+import com.cydeo.dto.weather.WeatherDTO;
 import com.cydeo.entity.Address;
 import com.cydeo.util.MapperUtil;
 import com.cydeo.repository.AddressRepository;
 import com.cydeo.service.AddressService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +18,18 @@ import java.util.stream.Collectors;
 @Service
 public class AddressServiceImpl implements AddressService {
 
+    @Value("${access_key}")
+    private String accessKey;
     private final AddressRepository addressRepository;
     private final MapperUtil mapperUtil;
+    private final WeatherApiClient weatherApiClient;
+    private final RestCountriesApiClient restCountriesApiClient;
 
-    public AddressServiceImpl(AddressRepository addressRepository, MapperUtil mapperUtil) {
+    public AddressServiceImpl(AddressRepository addressRepository, MapperUtil mapperUtil, WeatherApiClient weatherApiClient, RestCountriesApiClient restCountriesApiClient) {
         this.addressRepository = addressRepository;
         this.mapperUtil = mapperUtil;
+        this.weatherApiClient = weatherApiClient;
+        this.restCountriesApiClient = restCountriesApiClient;
     }
 
     @Override
@@ -34,7 +44,27 @@ public class AddressServiceImpl implements AddressService {
     public AddressDTO findById(Long id) throws Exception {
         Address foundAddress = addressRepository.findById(id)
                 .orElseThrow(() -> new Exception("No Address Found!"));
-        return mapperUtil.convert(foundAddress, new AddressDTO());
+        AddressDTO addressDTO = mapperUtil.convert(foundAddress, new AddressDTO());
+
+        addressDTO.setCurrentTemperatureC(
+                retrieveCurrentWeather(addressDTO.getCity())
+                .getCurrent()
+                .getTemperature());
+
+        addressDTO.setCurrentTemperatureF(addressDTO.getCurrentTemperatureC()*9/5 + 32);
+
+        addressDTO.setFlag(restCountriesApiClient.getCountryInformation(addressDTO.getCountry())
+                .get(0).getFlag());
+
+        addressDTO.setFlags(restCountriesApiClient.getCountryInformation(addressDTO.getCountry())
+                .get(0).getFlags());
+
+        return addressDTO;
+    }
+
+    private WeatherDTO retrieveCurrentWeather(String city) {
+
+        return weatherApiClient.getCurrentWeather(accessKey,city);
     }
 
     @Override

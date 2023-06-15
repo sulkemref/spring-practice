@@ -1,5 +1,6 @@
 package com.cydeo.dto;
 
+import com.cydeo.dto.country.Flags;
 import com.cydeo.enums.AddressType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +24,7 @@ public class AddressDTO {
 
     private String street;
     private String country;
+    private String flag;
     private String state;
     private String city;
     private String postalCode;
@@ -38,6 +40,9 @@ public class AddressDTO {
     @JsonBackReference(value = "teacher-address-reference")          // defaultReference
     private TeacherDTO teacher;
 
-    private Integer currentTemperature;     // Weather information, which we will later get it from 3rd party API
+    private Integer currentTemperatureC;     // Weather information, which we will later get it from 3rd party API
+    private Integer currentTemperatureF;
+
+    private Flags flags;
 
 }
